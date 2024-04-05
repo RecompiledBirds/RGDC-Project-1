@@ -24,6 +24,21 @@ public class ChunkData
             return this.type;
         }
     }
+
+    /// <summary>
+    /// Builds data from the chunk into the tilemap.
+    /// Remember to refresh the map afterwards!
+    /// </summary>
+    /// <param name="tilemap"></param>
+    /// <param name="offset"></param>
+    public void BuildToTileMap(Tilemap tilemap,Vector2Int offset)
+    {
+        foreach(Vector2Int pos in tileData.Keys)
+        {
+            Tile tile =ResourceManager<Tile>.LoadResource(tileData[pos]);
+            tilemap.SetTile(new Vector3Int(pos.x+offset.x,pos.y+offset.y,0), tile);
+        }
+    }
     public ChunkData(string file)
     {
         XmlDocument fileDoc= new XmlDocument();
@@ -113,5 +128,6 @@ public class ChunkData
 #endif
     private string id = "";
     private ChunkType type;
+   
     public Dictionary<Vector2Int, string> tileData = new Dictionary<Vector2Int, string>(); 
 }
