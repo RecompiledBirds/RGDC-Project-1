@@ -9,7 +9,7 @@ public class testmapbuilder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ChunkData data = new ChunkData("test.xml");
+        ChunkData data = new ChunkData("test");
         data.BuildToTileMap(map, Vector2Int.zero);
         data.BuildToTileMap(map, new Vector2Int(10,0));
         data.BuildToTileMap(map, new Vector2Int(20, 0));

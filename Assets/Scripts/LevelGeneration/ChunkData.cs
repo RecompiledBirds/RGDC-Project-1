@@ -9,9 +9,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using UnityEngine.Windows;
+using Directory = System.IO.Directory;
 
 public class ChunkData
 {
+    public static string ChunkFolder
+    {
+        get
+        {
+            return $"{Application.dataPath}/Chunks/";
+        }
+    }
     public ChunkData(ChunkType type)
     {
         this.type = type;
@@ -42,7 +50,7 @@ public class ChunkData
     public ChunkData(string file)
     {
         XmlDocument fileDoc= new XmlDocument();
-        fileDoc.Load(file);
+        fileDoc.Load($"{ChunkFolder}/{file}.xml");
         XmlNode root = fileDoc.DocumentElement;
 
         //load id
@@ -79,7 +87,8 @@ public class ChunkData
     /// <param name="chunkFileName"></param>
     public void ChunkDataToXML(string chunkFileName)
     {
-        XmlWriter writer = XmlWriter.Create($"{chunkFileName}.xml", new XmlWriterSettings() { Indent=true});
+        if (!Directory.Exists(ChunkFolder)) Directory.CreateDirectory(ChunkFolder);
+        XmlWriter writer = XmlWriter.Create($"{ChunkFolder}/{chunkFileName}.xml", new XmlWriterSettings() { Indent=true});
         writer.WriteStartDocument();
         writer.WriteStartElement("chunkdata");
         WriteNode(writer, "chunkId", chunkFileName);
@@ -113,8 +122,6 @@ public class ChunkData
         writer.Flush();
         writer.Close();
 
-
-        ChunkData d = new ChunkData($"{chunkFileName}.xml");
     }
 
     private void WriteNode(XmlWriter writer, string name, string value)
