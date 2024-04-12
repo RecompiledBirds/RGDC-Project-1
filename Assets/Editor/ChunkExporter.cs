@@ -43,10 +43,14 @@ public class ChunkExporter : EditorWindow
     {
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.BeginVertical();
+        EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Map");
         map = (Tilemap)EditorGUILayout.ObjectField(map, typeof(Tilemap), true);
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Background");
         background = (Tilemap)EditorGUILayout.ObjectField(background, typeof(Tilemap), true);
+        EditorGUILayout.EndHorizontal();
         if (GUILayout.Button("Export map as chunk"))
         {
             ExportChunk();
@@ -54,29 +58,37 @@ public class ChunkExporter : EditorWindow
 
         GUILayout.Label("Chunk Starting pos");
         EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("X");
         startingPos.x = EditorGUILayout.IntField(startingPos.x);
+        GUILayout.Label("Y");
         startingPos.y = EditorGUILayout.IntField(startingPos.y);
         EditorGUILayout.EndHorizontal();
         GUILayout.Label("Chunk size");
         EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("X");
         size.x = EditorGUILayout.IntField(size.x);
+        GUILayout.Label("Y");
         size.y = EditorGUILayout.IntField(size.y);
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.EndVertical();
         EditorGUILayout.BeginVertical();
-
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Type");
         chunkType = (ChunkType)EditorGUILayout.EnumPopup(chunkType);
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Chunk id");
         chunkId = GUILayout.TextField(chunkId);
-
+        EditorGUILayout.EndHorizontal();
 
 
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
     }
 
-    [MenuItem("RUGDC TOOLS / ChunkExporter")]
+    
+    [MenuItem("RUGDC TOOLS / Chunk Exporter")]
     public static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(ChunkExporter));
